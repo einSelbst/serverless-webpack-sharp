@@ -47,8 +47,14 @@ custom:
   bucket_name: image-resizer
 
   webpack:
-    forceInclude:
-      - sharp
+    includeModules:
+      forceExclude:
+        - aws-sdk
+        - serverless
+    packager: 'yarn'
+    # includeModules: true # enable auto-packing of external modules
+      # forceInclude:
+        # - sharp
     packagerOptions:
       scripts:
         - npm rebuild sharp --target=6.10.0 --target_arch=x64 --target_platform=linux
@@ -98,13 +104,19 @@ plugins:
 # you can add packaging information here
 package:
   include:
-    - .webpack/node_modules
+    - .webpack/node_modules/**
+    - node_modules/**
 #    - include-me-dir/**
 #  exclude:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
 functions:
+  sharpImage:
+    description: Resizes images
+    memorySize: 1024
+    timeout: 30
+    handler: handler.processImage
   hello:
     handler: handler.hello
     events:

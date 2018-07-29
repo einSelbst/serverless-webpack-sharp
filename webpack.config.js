@@ -6,11 +6,14 @@ const nodeExternals = require('webpack-node-externals');
 const slsw = require('serverless-webpack');
 
 
-const sharpTarball = path.resolve(
+const sharpTarball = path.join(
   __dirname,
-  `lambda-sharp/sharp.tar.gz`
+  'lambda-sharp/sharp.tar.gz'
 )
-const webpackDir = path.resolve(__dirname, '.webpack/')
+
+const webpackDir = path.join(__dirname, '.webpack/dependencies/')
+// const webpackDir = path.join(__dirname, '.webpack/service/')
+// const webpackDir = path.join(__dirname, '.webpack/')
 
 function ExtractTarballPlugin (archive, to) {
   return {
@@ -36,10 +39,6 @@ module.exports = {
 		include: __dirname,
         	exclude: /node_modules/,
 		use: [ 'babel-loader' ]
-	},
-	{
-		test: /\.json$/,
-		use: [ 'json-loader' ]
 	}
     ]
   },
@@ -54,6 +53,6 @@ module.exports = {
 //    new webpack.optimize.OccurenceOrderPlugin(),
 //    new webpack.optimize.DedupePlugin(),
     // new webpack.optimize.UglifyJsPlugin({ minimize: true, sourceMap: false, warnings: false }),
-    // new ExtractTarballPlugin(sharpTarball, webpackDir),
+    new ExtractTarballPlugin(sharpTarball, webpackDir),
   ],
 }

@@ -5,10 +5,23 @@
     "serverless": "./node_modules/serverless/bin/serverless",
     "webpack": "node_modules/webpack/bin/webpack.js"
   },
+  "dependencies": {
+    "babel-runtime": "6.26.0",
+    "image-size": "0.6.3",
+    "mime-types": "2.1.19",
+    "prettier": "1.13.7",
+    "sharp": "0.18.2",
+    "sprintf-js": "1.1.1"
+  },
   "devDependencies": {
     "aws-sdk": "^2.95.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-stage-3": "6.24.1",
+    "babel-register": "6.26.0",
     "clean-webpack-plugin": "^0.1.16",
     "decompress": "^4.2.0",
     "serverless": "^1.27.3",
@@ -16,9 +29,15 @@
     "serverless-plugin-cloudfront-lambda-edge": "2.0.0",
     "serverless-plugin-stage-variables": "^1.7.10",
     "serverless-webpack": "^5.1.5",
-    "sharp": "0.18.2",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.3",
     "webpack-node-externals": "^1.7.2"
+  },
+  "babel": {
+    "plugins": ["transform-runtime"],
+    "presets": [
+      ["env", { "node": "6.10" }],
+      "stage-3"
+    ]
   }
 }
